@@ -2,20 +2,23 @@
 // // import logo from './logo.svg';
 // import './App.css';
 import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
+import Home from './Pages/Home';
+import NotHome from './Pages/NotHome';
+import Navbar from './component/Navbar';
+import { Button } from 'reactstrap';
+
 
 class App extends Component {
-  constructor(){
-    super();
-    this.state = {nama:'Andi', usia:21};
-  }
+  
   render() {
-    setTimeout(() => {
-      this.setState({nama: 'Budi', usia: 25});
-    }, 3000)
+
     return (
       <div>
-        <h1>Halo nama saya {this.state.nama}</h1>
-        <h1>usia saya {this.state.usia} th</h1>
+        <Navbar />
+        <Route path='/' component={Home} exact  />
+        <Route path='/not-home' component={NotHome} />
+
       </div>
     );
   }
