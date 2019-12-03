@@ -1,18 +1,16 @@
 import React from 'react';
-import { Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
+import { Card, CardTitle, CardText } from 'reactstrap';
 
 const Kartu = (props) => {
   console.log(props)
     return (
-    <Row>
-      <Col sm="6">
-        <Card body>
-    <CardTitle>{props.contoh}</CardTitle>
-    <CardText>{props.contoh2}</CardText>
-    <Button>{props.contoh3}</Button>
-        </Card>
-      </Col>
-    </Row>
+        <div className='mx-auto'>
+            <Card body style={{padding: '50px', width: '300px'}}>
+                <CardTitle><h3>{props.nama}</h3></CardTitle>
+                <CardText>Rp. {props.harga}</CardText>
+                <CardText><img src={props.image} alt='products' style={{width: '100px', objectFit: 'cover', height: '100px' }}/></CardText>
+            </Card>
+        </div>
   );
 };
 

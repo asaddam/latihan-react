@@ -4,13 +4,15 @@ import {
   Navbar,
   NavbarToggler,
   Nav,
-  NavItem,
+  // NavItem,
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
   DropdownItem } from 'reactstrap';
   import { Link } from 'react-router-dom'
-  
+  import { connect } from 'react-redux'
+  import  { logout } from '../redux/action'
+
 class Header extends React.Component {
     state = {
       isOpen: false
@@ -21,6 +23,7 @@ class Header extends React.Component {
     });
   }
   render() {
+    console.log(this.props.role)
     return (
       <div>
         <Navbar color="dark" dark expand="md">
@@ -37,21 +40,41 @@ class Header extends React.Component {
                   </Link>
               </NavItem> */}
               <UncontrolledDropdown nav inNavbar>
-                <DropdownToggle nav caret>
-                  Options
+                <DropdownToggle nav caret style={{color: 'white'}}>
+                  {
+                    this.props.role
+                    ?
+                    this.props.username
+                    :
+                    'Click Me'
+                  }
                 </DropdownToggle>
-                <DropdownMenu right>
-                  <DropdownItem>
-                    Option 1
-                  </DropdownItem>
-                  <DropdownItem>
-                    Option 2
-                  </DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem>
-                    Reset
-                  </DropdownItem>
-                </DropdownMenu>
+                  {
+                    this.props.role
+                    ? 
+                    <DropdownMenu right>
+                      <DropdownItem  onClick={this.props.logout}>
+                        Log Out
+                      </DropdownItem>
+                      <Link to='/belajar'>
+                        <DropdownItem>
+                        belajar
+                        </DropdownItem>
+                      </Link>
+                    </DropdownMenu>
+                    :
+                    <DropdownMenu right>
+                      <Link to='/login'>
+                        <DropdownItem>
+                          Login
+                        </DropdownItem>
+                      </Link>
+                    <DropdownItem divider />
+                    <DropdownItem>
+                      Register
+                    </DropdownItem>
+                  </DropdownMenu>
+                  }
               </UncontrolledDropdown>
             </Nav>
           </Collapse>
@@ -61,5 +84,11 @@ class Header extends React.Component {
   }
 }
 
+const mapStatetoProps = (state) => {
+  return{
+    username: state.user.username,
+    role: state.user.role
+  }
+}
 
-export default Header;
+export default connect(mapStatetoProps, {logout})(Header);
